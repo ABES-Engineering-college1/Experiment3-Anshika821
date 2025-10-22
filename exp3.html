@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABES Engineering College Time Table</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Color Palette
+                        'abes-blue': '#004793',      // Main Primary Blue
+                        'abes-dark-blue': '#003366', // Deeper Blue for gradient
+                        'period-green': '#D9F8D9',   // Light Green (Softer)
+                        'period-yellow': '#FFFACD',  // Faded Yellow (Softer)
+                        'period-cyan': '#D9F8FF',    // Light Cyan (Softer)
+                        'period-orange': '#FFE4C4',  // Light Peach (Softer)
+                        'header-green': '#6AA84F',   // Deeper Green for table header
+                        'text-gray': '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for clean, responsive table structure */
+        .tt-cell {
+            /* Group and z-index for hover elevation */
+            @apply p-1 sm:p-2 h-16 text-xs sm:text-sm border border-gray-200 transition-all duration-150 ease-in-out group relative hover:z-10;
+            line-height: 1.2;
+            vertical-align: top;
+        }
+        .tt-cell-content {
+            /* Enhanced hover effect with deeper shadow and slight brightness increase */
+            @apply h-full w-full p-1 rounded-md transition-all duration-200 ease-in-out shadow-sm hover:shadow-xl hover:scale-[1.01] flex flex-col justify-center items-center font-medium;
+        }
+        /* Style for the day column */
+        .tt-cell-day {
+            @apply font-extrabold bg-gray-50 text-base text-center align-middle h-16 text-abes-blue border-r-2 border-gray-300;
+        }
+        /* Style for the time row */
+        .tt-cell-time {
+            @apply font-bold bg-abes-dark-blue p-2 text-center text-xs text-white;
+        }
+        /* Vertical LUNCH text */
+        .rotated-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800; /* Extra bold */
+            letter-spacing: 2px;
+            color: #555;
+        }
+        /* Mobile table adjustment */
+        @media (max-width: 640px) {
+            .timetable-container {
+                overflow-x: auto;
+            }
+            .timetable-main {
+                min-width: 900px; /* Ensure table is wide enough to show all periods */
+            }
+            .tt-cell {
+                height: 5.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-text-gray p-4 sm:p-8">
+
+    <!-- Main Time Table Card -->
+    <div class="max-w-7xl mx-auto bg-white shadow-3xl rounded-3xl overflow-hidden">
+        <!-- Header Section (Gradient Background) -->
+        <header class="bg-gradient-to-r from-abes-blue to-abes-dark-blue text-white p-6 sm:p-8 shadow-xl">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base mb-2 opacity-90">
+                <span class="font-bold tracking-wider">B.Tech</span>
+                <span class="text-center font-light">ABES Engineering College, Ghaziabad</span>
+                <span class="font-bold">TM-07</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-center tracking-widest uppercase">
+                Class Time Table
+            </h1>
+        </header>
+
+        <!-- Sub Header Details (Clean Card) -->
+        <div class="p-4 sm:p-6 bg-gray-50 border-b border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-y-2 gap-x-6 text-sm">
+            <p class="font-medium text-abes-blue"><strong>Course / Sem/Sec:</strong> B.Tech / I-CSE-AIML-1</p>
+            <p class="font-medium"><strong>Department:</strong> Applied Science and Humanities</p>
+            <p class="font-medium md:text-right"><strong>Session:</strong> 2025-26, Odd Semester</p>
+            <div class="md:col-span-3 text-xs sm:text-sm mt-1">
+                <span class="font-semibold text-gray-700">Class Room Nos:</span> RJ-106, RJ-107, RJ-201, RJ-202, RJ-204, RJ-304, RJ-306
+            </div>
+        </div>
+
+        <!-- Timetable Main Table (Scrollable on small screens) -->
+        <div class="timetable-container p-2 sm:p-6">
+            <table class="timetable-main w-full border-collapse border border-gray-300 rounded-xl overflow-hidden shadow-lg">
+                <thead>
+                    <!-- Period Numbers and Time Slots in one cohesive header -->
+                    <tr class="bg-header-green text-white font-bold text-center">
+                        <td class="tt-cell tt-cell-time rounded-tl-lg">Day / Time</td>
+                        <td class="tt-cell tt-cell-time">I<div class="font-normal text-gray-200">08:50-09:40</div></td>
+                        <td class="tt-cell tt-cell-time">II<div class="font-normal text-gray-200">09:40-10:30</div></td>
+                        <td class="tt-cell tt-cell-time">III<div class="font-normal text-gray-200">10:40-11:30</div></td>
+                        <td class="tt-cell tt-cell-time">IV<div class="font-normal text-gray-200">11:30-12:20</div></td>
+                        <td class="tt-cell tt-cell-time">V<div class="font-normal text-gray-200">12:20-1:10</div></td>
+                        <td class="tt-cell tt-cell-time">VI<div class="font-normal text-gray-200">01:10-02:00</div></td>
+                        <td class="tt-cell tt-cell-time">VII<div class="font-normal text-gray-200">02:00-02:50</div></td>
+                        <td class="tt-cell tt-cell-time">VIII<div class="font-normal text-gray-200">02:50-03:40</div></td>
+                        <td class="tt-cell tt-cell-time rounded-tr-lg">IX<div class="font-normal text-gray-200">03:40-04:30</div></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Monday -->
+                    <tr>
+                        <td rowspan="2" class="tt-cell tt-cell-day">MON</td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (SGI)<br><span class="text-gray-600">RJ-107</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (PM)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (NS)<br><span class="text-gray-600">RJ-107</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-cyan">
+                            <div class="tt-cell-content"><strong>2SVA151</strong> (JKC)<br><span class="text-gray-600">RJ-107</span></div>
+                        </td>
+                        <td rowspan="10" class="tt-cell bg-gray-300 w-10 border-4 border-gray-400">
+                            <div class="rotated-text">LUNCH BREAK</div>
+                        </td>
+                        <td colspan="2" class="tt-cell bg-period-orange text-center">
+                            <div class="tt-cell-content"><strong>2SC5151</strong> (SSP)<br><span class="text-gray-600">RJ-304</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SME101</strong> (SCN)<br><span class="text-gray-600">RJ-306</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SEC101</strong> (ATS)<br><span class="text-gray-600">RJ-306</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                    </tr>
+                    <!-- Tuesday -->
+                    <tr>
+                        <td rowspan="2" class="tt-cell tt-cell-day">TUE</td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SEC101</strong> (ATS)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SME101</strong> (SCN)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td colspan="2" class="tt-cell bg-period-yellow text-center">
+                            <div class="tt-cell-content"><strong>2SHU151</strong> (SGL,KG)<br><span class="text-gray-600">KC Block, V Floor</span></div>
+                        </td>
+                        <td colspan="2" class="tt-cell bg-period-orange text-center">
+                            <div class="tt-cell-content"><strong>2SC5101</strong> (SSP)<br><span class="text-gray-600">RJ-107</span></div>
+                        </td>
+                        <td colspan="2" class="tt-cell bg-period-cyan text-center">
+                            <div class="tt-cell-content"><strong>Mentor-Mentee</strong> (SCN, SGI)<br><span class="text-gray-600">RJ-107</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                    </tr>
+                    <!-- Wednesday -->
+                    <tr>
+                        <td rowspan="2" class="tt-cell tt-cell-day">WED</td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SCN101</strong> (SCN)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (PM)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SME101</strong> (SCN, DNJ)<br><span class="text-gray-600">Vishwakarma Block</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SCN101</strong> (SCN)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SC5101</strong> (ATS)<br><span class="text-gray-600">RJ-304</span></div>
+                        </td>
+                        <td colspan="2" class="tt-cell bg-period-orange text-center">
+                            <div class="tt-cell-content"><strong>2SC5101</strong> (SSP)<br><span class="text-gray-600">RJ-304</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (SGI)<br><span class="text-gray-600">RJ-204</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                    </tr>
+                    <!-- Thursday -->
+                    <tr>
+                        <td rowspan="2" class="tt-cell tt-cell-day">THU</td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (PM)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (ATS)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (RDJ)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SME101</strong> (SCN)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td colspan="3" class="tt-cell bg-period-orange text-center">
+                            <div class="tt-cell-content"><strong>2SC5151</strong> (SSP)<br><span class="text-gray-600">RJ-304</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (SGI)<br><span class="text-gray-600">RJ-204</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1"></td>
+                    </tr>
+                    <!-- Friday -->
+                    <tr>
+                        <td rowspan="2" class="tt-cell tt-cell-day rounded-bl-xl">FRI</td>
+                        <td class="tt-cell bg-period-cyan">
+                            <div class="tt-cell-content"><strong>2SVA151</strong> (JKC)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SCN101</strong> (SCN)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (PM)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (SGI)<br><span class="text-gray-600">RJ-202</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU102</strong> (NS)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SEC101</strong> (ATS)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-green">
+                            <div class="tt-cell-content"><strong>2SHU101</strong> (SGI)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                        <td class="tt-cell bg-period-yellow">
+                            <div class="tt-cell-content"><strong>2SA5102</strong> (PM)<br><span class="text-gray-600">RJ-201</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1 rounded-bl-xl"></td>
+                        <td colspan="4" class="tt-cell bg-gray-50 border-t-0 p-1 rounded-br-xl"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        ---
+        <!-- Subject Details Key (Card-based Layout) -->
+        <div class="p-4 sm:p-6 bg-gray-50 border-t border-gray-200">
+            <h2 class="text-xl font-extrabold mb-4 text-abes-blue border-b-2 pb-2 border-gray-300">
+                Subject Key & Faculty Details
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <!-- Theory Column -->
+                <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="font-bold text-center text-lg pb-2 mb-3 text-header-green border-b border-gray-200">THEORY</h3>
+                    <div class="space-y-2">
+                        <p><strong class="text-abes-blue">2SME101 (Basics of Mechanical):</strong> Dr. Shivakant Chauhan (SCN)</p>
+                        <p><strong class="text-abes-blue">2SEC101 (Basics of Electronics Engg.):</strong> Dr. Aarti Sharma (ATS)</p>
+                        <p><strong class="text-abes-blue">2SA5102 (Linear Algebra/Stats):</strong> Mr. Priti Sinha (PM), Dr. RDJ (RDJ)</p>
+                        <p><strong class="text-abes-blue">2SC5101 (Data Structure):</strong> Mr. Shashank Swaroop (SSP)</p>
+                        <p><strong class="text-abes-blue">2SHU101 (Soft Skills):</strong> Dr. Sonia Gouri (SGI), Dr. Neetu Sharma (NS)</p>
+                        <p><strong class="text-abes-blue">2SHU102 (Design Thinking):</strong> Dr. Neha Singh (NS)</p>
+                        <p><strong class="text-abes-blue">2SCN101 (Subject Code Not Listed):</strong> Dr. Shivakant Chauhan (SCN)</p>
+                    </div>
+                </div>
+                <!-- Practical/Lab Column -->
+                <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="font-bold text-center text-lg pb-2 mb-3 text-header-green border-b border-gray-200">PRACTICAL / LAB</h3>
+                    <div class="space-y-2">
+                        <p><strong class="text-abes-blue">2SC5151 (Data Structure Lab):</strong> Mr. Shashank Swaroop (SSP)</p>
+                        <p><strong class="text-abes-blue">2SHU151 (Prof. Comm. Lab):</strong> Dr. Sonia Gouri (SGI), Mr. Shivakant (SCN), KG</p>
+                        <p><strong class="text-abes-blue">2SME151 (Digital Manufacturing Lab):</strong> Dr. Shivakant Chauhan (SCN), Ms. Deepa Jain (DNJ)</p>
+                        <p><strong class="text-abes-blue">2SVA151 (Web Designing Workshop I):</strong> Mr. Jitendra Kumar Chauhan (JKC)</p>
+                        <p><strong class="text-abes-blue">Mentor-Mentee:</strong> Dr. Shivakant Chauhan (SCN), Dr. Sonia Gouri (SGI)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gray-300 text-sm text-center">
+                <p class="font-semibold text-gray-700">
+                    Academic Program Coordinator: Dr. Shweta Choudhary |
+                    Class Mentors: Dr. Shivakant Chauhan (SCN), Dr. Sonia Gouri (SGI)
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer Signatures -->
+        <footer class="p-6 flex justify-between text-sm bg-gray-100 border-t border-gray-300 rounded-b-3xl">
+            <div class="text-left">
+                <strong class="block text-abes-blue font-bold">Time Table I/C</strong>
+                Dr. Nimisha & Dr. Vikash Singh
+            </div>
+            <div class="text-right">
+                <strong class="block text-abes-blue font-bold">HOD</strong>
+                Dr. Jaya Singh
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
